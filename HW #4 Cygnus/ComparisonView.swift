@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - 1. 定義規格的分頁類別 (加入 "車系總覽")
 enum SpecCategory: String, CaseIterable {
-    case overview = "車系總覽" // 第一頁 List 入口
+    case overview = "車系總覽"  // 第一頁 List 入口
     case engine = "引擎與動力"
     case chassis = "制動與底盤"
     case lighting = "燈具設備"
@@ -33,41 +33,30 @@ struct ComparisonView: View {
         )
         
         NavigationStack {
-            ZStack {
-                // 套用全局漸層背景
-                bgGradient.ignoresSafeArea()
-                
-                VStack(spacing: 0) {
-                    // 👇 替換成與 HistoryView 完全一致的大標題排版
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("SPECIFICATIONS")
-                            .font(.system(size: 38, weight: .black))
-                        Text("Compare technical details across generations.")
-                            .font(.subheadline)
-                            .foregroundColor(.white.opacity(0.8))
+            // 💡 拔掉 ZStack 和 VStack，直接放 TabView！
+            TabView {
+                ForEach(SpecCategory.allCases, id: \.self) { category in
+                    if category == .overview {
+                        ModelListView(scooters: scooters)
+                    } else {
+                        SpecPageView(category: category, scooters: scooters)
                     }
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.top, 40)
-                    .padding(.bottom, 20)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    // 水平滑動分頁區塊
-                    TabView {
-                        ForEach(SpecCategory.allCases, id: \.self) { category in
-                            if category == .overview {
-                                // 👇 第一頁：套用全新設計的原生圓角 List 總覽
-                                ModelListView(scooters: scooters)
-                            } else {
-                                // 👇 其他頁：維持你原本的規格卡片設計
-                                SpecPageView(category: category, scooters: scooters)
-                            }
-                        }
-                    }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 }
             }
-            .environment(\.colorScheme, .dark) // 強制深色模式讓 List 渲染更乾淨
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+            
+            // ✨ 重點 1：將漸層設為「背景」，並只讓背景去忽略安全範圍！
+            // 這樣內容不會往上疊到標題，底下的小圓點也會乖乖停留在 Tab bar 上方。
+            .background(bgGradient.ignoresSafeArea())
+            
+            // ✨ 重點 2：加上你堅持要的原生標題！
+            .navigationTitle("車系總覽")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbarColorScheme(.dark, for: .navigationBar) // 確保標題是白字
+            
+            // 💡 隱藏導航列的預設毛玻璃底色，讓你的 Yamaha 藍漸層完美透出來
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .environment(\.colorScheme, .dark)
         }
     }
 }
@@ -75,16 +64,16 @@ struct ComparisonView: View {
 // MARK: - 3. 總覽清單頁 (使用原生 List + 圓角微光設計)
 struct ModelListView: View {
     let scooters: [CygnusModel]
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("車系總覽")
-                .font(.system(size: 32, weight: .black))
-                .foregroundColor(.white)
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-                .padding(.bottom, 10)
-            
+//            Text("車系總覽")
+//                .font(.system(size: 32, weight: .black))
+//                .foregroundColor(.white)
+//                .padding(.horizontal, 20)
+//                .padding(.top, 10)
+//                .padding(.bottom, 10)
+
             List {
                 ForEach(scooters) { scooter in
                     NavigationLink(destination: DetailView(scooter: scooter)) {
@@ -94,8 +83,8 @@ struct ModelListView: View {
                     // ✨ 讓 List 的每一列變成微光毛玻璃
                     .listRowBackground(
                         ZStack {
-                            Color.black.opacity(0.1) // 打個暗底
-                            Rectangle().fill(.ultraThinMaterial) // 上毛玻璃
+                            Color.black.opacity(0.1)  // 打個暗底
+                            Rectangle().fill(.ultraThinMaterial)  // 上毛玻璃
                         }
                     )
                     // 設定分隔線的顏色
@@ -106,28 +95,26 @@ struct ModelListView: View {
             .listStyle(.insetGrouped)
             // ✨ 關鍵 2：隱藏預設背景，讓底層 Yamaha 藍透出來
             .scrollContentBackground(.hidden)
-//            .padding(.bottom, 50)
+            //            .padding(.bottom, 50)
         }
     }
 }
-
-
 
 // MARK: - 4. 單一規格分頁 (完全保留原設計)
 struct SpecPageView: View {
     let category: SpecCategory
     let scooters: [CygnusModel]
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 該分頁的大標題
             Text(category.rawValue)
-                .font(.system(size: 32, weight: .black))
+                .font(.system(size: 25, weight: .black))
                 .foregroundColor(.white)
                 .padding(.horizontal, 20)
                 .padding(.top, 10)
                 .padding(.bottom, 20)
-            
+
             // 垂直滾動歷代規格
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 12) {
@@ -136,7 +123,7 @@ struct SpecPageView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 80) // 給下方分頁小圓點留空間
+                .padding(.bottom, 80)  // 給下方分頁小圓點留空間
             }
         }
     }
@@ -146,37 +133,37 @@ struct SpecPageView: View {
 struct SpecRowCard: View {
     let scooter: CygnusModel
     let category: SpecCategory
-    
+
     var body: some View {
         HStack(spacing: 15) {
             // 左側：世代標籤
             VStack(alignment: .leading, spacing: 4) {
                 Text(scooter.cardGenerationTitle)
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(scooter.themeColor) // 使用該代的代表色
-                
-                Text(scooter.yearsLabel.prefix(4)) // 只取年份前4碼
+                    .foregroundColor(scooter.themeColor)  // 使用該代的代表色
+
+                Text(scooter.yearsLabel.prefix(4))  // 只取年份前4碼
                     .font(.caption)
                     .foregroundColor(.gray)
             }
             .frame(width: 75, alignment: .leading)
-            
+
             // 分隔線
             Divider()
                 .background(Color.gray.opacity(0.4))
                 .frame(height: 30)
-            
+
             // 右側：規格細節
             Text(specContent)
                 .font(.system(size: 15, weight: .medium))
                 .foregroundColor(.white.opacity(0.9))
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
-            
+
             Spacer()
         }
         .padding()
-        .background(Color.white.opacity(0.05)) // 微亮的深色卡片底
+        .background(Color.white.opacity(0.05))  // 微亮的深色卡片底
         .clipShape(RoundedRectangle(cornerRadius: 12))
         // 左側加上一個微小的顏色邊條，增加視覺層次
         .overlay(
@@ -186,39 +173,41 @@ struct SpecRowCard: View {
             alignment: .leading
         )
     }
-    
+
     // 根據當前分頁類別，回傳對應的文字資料
     var specContent: String {
         switch category {
         case .overview:
-            return "" // 總覽頁不會渲染這張卡片，所以回傳空字串即可
-            
+            return ""  // 總覽頁不會渲染這張卡片，所以回傳空字串即可
+
         case .engine:
             return scooter.engine
-            
+
         case .chassis:
             return scooter.brake
-            
+
         case .lighting:
             if scooter.generation == "第一代" || scooter.generation == "第二代" {
                 return "H4 傳統鹵素大燈 / 鹵素方向燈"
-            } else if scooter.generation == "第三代" || scooter.generation == "第四代" {
+            } else if scooter.generation == "第三代" || scooter.generation == "第四代"
+            {
                 return "H4 鹵素大燈 / LED 定位燈與尾燈"
             } else {
                 return "全車高亮度 LED 燈具 (反射式/魚眼)"
             }
-            
+
         case .electronics:
             if scooter.generation == "第七代" {
                 return "TCS 循跡防滑系統 / 智慧 TFT 儀表"
-            } else if scooter.generation == "第五代" || scooter.generation == "第六代" {
+            } else if scooter.generation == "第五代" || scooter.generation == "第六代"
+            {
                 return "BOSCH ABS 防鎖死系統 / 全數位儀表"
             } else if scooter.generation == "第二代" {
                 return "FI 噴射供油電腦 / 液晶指針雙載儀表"
             } else {
                 return "無特殊電控輔助 / 傳統機械表"
             }
-            
+
         case .dimensions:
             if scooter.generation == "第六代" || scooter.generation == "第七代" {
                 return "前 120/70-12 | 後 130/70-12 (不對稱車架)"
