@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - 1. 定義規格的分頁類別 (加入 "車系總覽")
 enum SpecCategory: String, CaseIterable {
-    case overview = "車系總覽" // 新增這頁作為 List 入口
+    case overview = "車系總覽" // 第一頁 List 入口
     case engine = "引擎與動力"
     case chassis = "制動與底盤"
     case lighting = "燈具設備"
@@ -21,61 +21,60 @@ enum SpecCategory: String, CaseIterable {
 struct ComparisonView: View {
     let scooters: [CygnusModel]
     
-    // 定義深色背景色
-    let bgColor = Color(red: 0.05, green: 0.05, blue: 0.1)
-    
-    // 初始化設定：讓 List 點進 DetailView 時的返回鍵與標題保持白色
-    init(scooters: [CygnusModel]) {
-        self.scooters = scooters
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-    }
+    // 全局漸層背景色
+    let darkBg = Color(red: 0.05, green: 0.05, blue: 0.1)
+    let yamahaBlue = Color(red: 0 / 255.0, green: 32 / 255.0, blue: 130 / 255.0)
     
     var body: some View {
-        // 加入 NavigationStack 讓總覽頁可以點擊跳轉
+        let bgGradient = LinearGradient(
+            gradient: Gradient(colors: [yamahaBlue, darkBg]),
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        
         NavigationStack {
-            VStack(spacing: 0) {
-                // 頂部導航列 (保持與 HistoryView 一致的風格)
-                HStack {
-                    Image(systemName: "line.horizontal.3").opacity(0) // 佔位平衡用
-                    Spacer()
-                    Text("SPECIFICATIONS")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.white)
-                        .kerning(2)
-                    Spacer()
-                    Image(systemName: "slider.horizontal.3")
-                        .font(.system(size: 20))
-                        .foregroundColor(.white)
-                }
-                .padding()
-                .background(bgColor)
+            ZStack {
+                // 套用全局漸層背景
+                bgGradient.ignoresSafeArea()
                 
-                // 水平滑動分頁區塊
-                TabView {
-                    ForEach(SpecCategory.allCases, id: \.self) { category in
-                        if category == .overview {
-                            // 👇 第一頁：顯示可點擊跳轉的清單
-                            ModelListView(scooters: scooters, bgColor: bgColor)
-                        } else {
-                            // 👇 其他頁：顯示你設計的規格卡片
-                            SpecPageView(category: category, scooters: scooters)
+                VStack(spacing: 0) {
+                    // 👇 替換成與 HistoryView 完全一致的大標題排版
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("SPECIFICATIONS")
+                            .font(.system(size: 38, weight: .black))
+                        Text("Compare technical details across generations.")
+                            .font(.subheadline)
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 40)
+                    .padding(.bottom, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    // 水平滑動分頁區塊
+                    TabView {
+                        ForEach(SpecCategory.allCases, id: \.self) { category in
+                            if category == .overview {
+                                // 👇 第一頁：套用全新設計的原生圓角 List 總覽
+                                ModelListView(scooters: scooters)
+                            } else {
+                                // 👇 其他頁：維持你原本的規格卡片設計
+                                SpecPageView(category: category, scooters: scooters)
+                            }
                         }
                     }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                .background(bgColor)
             }
-            .padding(.bottom, 80) // 避免跟 MainTabView 底部導航列重疊
-            .background(bgColor.ignoresSafeArea())
+            .environment(\.colorScheme, .dark) // 強制深色模式讓 List 渲染更乾淨
         }
     }
 }
 
-// MARK: - 3. 總覽清單頁 (點擊進入 DetailView)
+// MARK: - 3. 總覽清單頁 (使用原生 List + 圓角微光設計)
 struct ModelListView: View {
     let scooters: [CygnusModel]
-    let bgColor: Color
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -88,41 +87,33 @@ struct ModelListView: View {
             
             List {
                 ForEach(scooters) { scooter in
-                    NavigationLink {
-                        // 點擊後跳轉到詳細介紹頁
-                        DetailView(scooter: scooter)
-                    } label: {
-                        HStack {
-                            Image(scooter.imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 60, height: 40)
-                                .clipShape(RoundedRectangle(cornerRadius: 6))
-                            
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(scooter.generation)
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                Text(scooter.name)
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                            }
-                            .padding(.leading, 8)
-                        }
-                        .padding(.vertical, 4)
+                    NavigationLink(destination: DetailView(scooter: scooter)) {
+                        // 呼叫獨立出來的 DetailRow
+                        DetailRow(scooter: scooter)
                     }
-                    .listRowBackground(Color.white.opacity(0.05))
-                    .listRowSeparatorTint(.gray.opacity(0.3))
+                    // ✨ 讓 List 的每一列變成微光毛玻璃
+                    .listRowBackground(
+                        ZStack {
+                            Color.black.opacity(0.1) // 打個暗底
+                            Rectangle().fill(.ultraThinMaterial) // 上毛玻璃
+                        }
+                    )
+                    // 設定分隔線的顏色
+                    .listRowSeparatorTint(Color.white.opacity(0.2))
                 }
             }
-            .listStyle(.plain)
+            // ✨ 關鍵 1：原生大圓角群組樣式
+            .listStyle(.insetGrouped)
+            // ✨ 關鍵 2：隱藏預設背景，讓底層 Yamaha 藍透出來
             .scrollContentBackground(.hidden)
-            .padding(.bottom, 50)
+//            .padding(.bottom, 50)
         }
     }
 }
 
-// MARK: - 4. 單一規格分頁 (基於你的設計)
+
+
+// MARK: - 4. 單一規格分頁 (完全保留原設計)
 struct SpecPageView: View {
     let category: SpecCategory
     let scooters: [CygnusModel]
@@ -145,13 +136,13 @@ struct SpecPageView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 50) // 給下方分頁小圓點留空間
+                .padding(.bottom, 80) // 給下方分頁小圓點留空間
             }
         }
     }
 }
 
-// MARK: - 5. 單一代數的規格卡片 (完全套用你的設計)
+// MARK: - 5. 單一代數的規格卡片 (完全保留原設計)
 struct SpecRowCard: View {
     let scooter: CygnusModel
     let category: SpecCategory
