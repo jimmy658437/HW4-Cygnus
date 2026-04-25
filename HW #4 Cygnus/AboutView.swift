@@ -104,11 +104,11 @@ struct AboutView: View {
                             .padding(.top, 10)
 
                             // 底部版權宣告
-                            Text("© YAMAHA MOTOR TAIWAN CO., LTD.")
-                                .font(.caption2)
-                                .foregroundColor(.white.opacity(0.4))
-                                .padding(.top, 30)
-                                .padding(.bottom, 80)
+//                            Text("© YAMAHA MOTOR TAIWAN CO., LTD.")
+//                                .font(.caption2)
+//                                .foregroundColor(.white.opacity(0.4))
+//                                .padding(.top, 30)
+//                                .padding(.bottom, 80)
                         }
                         .padding(.horizontal, 20)
                     }
