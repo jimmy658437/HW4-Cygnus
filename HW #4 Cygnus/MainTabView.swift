@@ -15,7 +15,7 @@ struct MainTabView: View {
             name: "Cygnus-X",
             years: "2002 - 2006",
             slogan: "「勁戰」誕生",
-            themeColor: .blue,
+            themeColor: .gray,
             description: """
                 2002年，台灣山葉發表第一代 Cygnus-X 125，可動式車頭、H4規格頭燈、前後12吋輪胎、雙槍後避震器、為求均衡配重而存在的前置電瓶，開創台灣運動型速克達 12 吋胎與雙槍避震的道路。
                 前衛的 Cygnus-X 並沒有一上市就轟動，而是等到2004年首次小改(SR版本) 導入活潑的雙配色，甚至下猛藥限量發售Rossi限量版！更重要的是啟用中文車名「勁戰」才迎來銷售爆發。由此可見，接地氣比高大上更有效用。
@@ -60,7 +60,7 @@ struct MainTabView: View {
             name: "Cygnus-X",
             years: "2012 - 2015",
             slogan: "美學與性能的平衡",
-            themeColor: .orange,
+            themeColor: .mint,
             description:"""
                 邁入第三世代，勁戰回歸運動風格，分離式頭燈導入LED定位燈，車殼設計流暢洗練，遠看與第一代神韻極為近似。
                 三代勁戰內藏不少優化細節，例如採用新版卡鉗、加大 12% 煞車皮尺寸、縮短煞車油管長度 15% ，制動效果因此進步 19%。輕量化碟盤、前叉阻尼調整、新版後避震器，操控感有所升級。加上車體輕量化 3%、外觀部品與燈具組減重 5% 與 3%，還有傳動系統調整、排氣管內部，運動化工程範圍有內有外、表裡一致。
@@ -82,7 +82,7 @@ struct MainTabView: View {
             name: "Cygnus-X",
             years: "2015 - 2018",
             slogan: "前後碟煞，操控進化",
-            themeColor: .red,
+            themeColor: .yellow,
             description: """
                 第四代勁戰改用前後碟煞是最大亮點，後輪從鼓煞變成碟煞，耐熱性與制動性一一提升，並增添視覺俐落感。
                 此外，四代勁戰的前後輪框、三角台、後搖臂、車架等剛性結構都是重新設計、能夠以降低簧下重量的輕量化好料。動力方面，三代勁戰凸輪軸重新設計過，常用轉速域的出力提升 15% ，搭配車身減輕 3kg ，原廠進行 10 度登坡實測，0~50m 加速距離比三代減少 3.7 個車身。再來是全新的加長曲軸傳動箱(同 BWS 125 )，想要加大後輪尺寸不再是困擾。
@@ -104,7 +104,7 @@ struct MainTabView: View {
             name: "Cygnus-X",
             years: "2018 - 2020",
             slogan: "重車級 ABS，LED 頭尾燈導入",
-            themeColor: .blue,
+            themeColor: .red,
             description: """
                 頭燈從沿用四個世代的 H4 鹵素大燈改為反射式 LED，燈具模組得以小型化，加上更流暢的車體線條與尾燈具，整體視覺更純熟洗練。
                 五代則是啟用來自 MT-09 的 ABS 液壓元件，125cc 速克達導入重機煞車系統。再來的新增配備是手機 12V 充電孔，讓智慧手機成為一路隨行的移動裝置。儀錶也從指針/液晶混搭變成全液晶顯示。
@@ -127,7 +127,7 @@ struct MainTabView: View {
             name: "Cygnus Gryphus",
             years: "2020 - 2024",
             slogan: "新世代水冷引擎，全新車架平台",
-            themeColor: .gray,
+            themeColor: .indigo,
             description: """
                 第六代勁戰就是再造。英文車名 Cygnus-X 天鵝座 X 轉變為 Cygnus-Gryphus 神鷹，沿用五個世代的氣冷 5ML 引擎到這裡宣告終止，全新的 Blue Core 引擎更環保、更省油、動力卻提升 30% 來到最大馬力 12.24ps 、最大扭力 1.14kgm 。怎麼辦到的?關鍵是水冷，再搭載 VVA ( Variable Valve Actuation ) 可變汽門正時還有 SMG 智能啟動。
                 2023 年 3 月，俗稱 6.5 代勁戰小改款上市，這回賣點是ABS車型導入TCS循跡防滑
@@ -153,7 +153,7 @@ struct MainTabView: View {
             name: "Cygnus X/XR",
             years: "2025 - 至今",
             slogan: "重返敏捷，雙動力編成",
-            themeColor: .red,
+            themeColor: .orange,
             description: """
                 七代勁戰採全新開發的 DL8 車架（根據 B8R 的市場與賽事反饋，針對車架設計進行全新研發與改進後，賦予新的平台代號），在重量不變下提升 19% 縱向剛性（與六代相比），原廠也調整拉桿槓桿比，提供更好的煞車手感，並加大前碟盤至 267mm，同時卡鉗活塞也加大，提供更好的制動。
                 引擎維持水冷 Blue Core 引擎（同期之同引擎 125cc 車款為六代勁戰、BWS 125；150cc 車款為 Force2.0、AUGUR、NMAX 155 ），並搭載 VVA 可變汽門技術。根據報導，七代勁戰 125cc 版本在傳動和引擎調校上進行了改良，例如調整了變速特性，讓車輛在全開油門時能更早進入傳動和引擎效率最佳的狀態，使得騎乘感受比六代更為輕盈、加速更敏捷。

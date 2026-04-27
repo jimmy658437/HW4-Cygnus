@@ -51,6 +51,8 @@ struct ComparisonView: View {
             .navigationTitle("車系總覽")
             .navigationBarTitleDisplayMode(.large)
             .toolbarColorScheme(.dark, for: .navigationBar)  // 確保標題是白字
+
+            // 💡 隱藏導航列的預設毛玻璃底色，讓你的 Yamaha 藍漸層完美透出來
             .toolbarBackground(.hidden, for: .navigationBar)
             .environment(\.colorScheme, .dark)
         }
@@ -195,13 +197,14 @@ struct SpecRowCard: View {
                 return "標配 TCS 循跡防滑系統（ABS 視等級配備）/ 全數位儀表"
             } else if scooter.generation == "第六代" {
                 return """
-                ABS＋TCS (視等級配備) / \nTFT 智慧儀表或高反差數位儀表
-                """
+                    ABS＋TCS (視等級配備) / \nTFT 智慧儀表或高反差數位儀表
+                    """
             } else if scooter.generation == "第五代" {
                 return "ABS 防鎖死煞車系統 (視等級配備) / 全數位儀表"
-            } else if scooter.generation == "第二代" || scooter.generation == "第三代" || scooter.generation == "第四代"
+            } else if scooter.generation == "第二代" || scooter.generation == "第三代"
+                || scooter.generation == "第四代"
             {
-                return "FI 噴射供油系統 / \n液晶指針雙載儀表"
+                return "FI 噴射供油系統 / \n液晶指針混合式儀表"
             } else {
                 return "無特殊電控輔助 / 傳統機械表"
             }

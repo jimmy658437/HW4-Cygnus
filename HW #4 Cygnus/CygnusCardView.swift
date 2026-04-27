@@ -28,7 +28,7 @@ struct CygnusCardView: View {
                         ZStack {
                             Image(imgName)
                                 .resizable()
-                                .scaledToFill()
+                                .scaledToFit()
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 240)
                                 .clipped()

@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailView: View {
     let scooter: CygnusModel
     let darkBg = Color(red: 0.05, green: 0.05, blue: 0.1)
+    let yamahaBlue = Color(red: 0 / 255.0, green: 32 / 255.0, blue: 130 / 255.0)
 
     // 延續多圖自動生成的邏輯，作為頂部的 Hero Image 輪播
     var displayImages: [String] {
@@ -21,6 +22,13 @@ struct DetailView: View {
     }
 
     var body: some View {
+        
+        let bgDetailGradient = LinearGradient(
+            gradient: Gradient(colors: [scooter.themeColor.opacity(0.9), yamahaBlue.opacity(0.9)]),
+            startPoint: UnitPoint(x: 0.2, y: 0),
+            endPoint: UnitPoint(x: 0.5, y: 0.7)
+        )
+        
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 20) {
 
@@ -113,7 +121,7 @@ struct DetailView: View {
                 .padding(.bottom, 40)
             }
         }
-        .background(darkBg.ignoresSafeArea())
+        .background(bgDetailGradient.ignoresSafeArea())
         .navigationTitle("\(scooter.generation) \(scooter.name)")
         // ✨ 在詳細頁面通常建議用 .inline，讓標題縮小置中，留更多空間給內容
         .navigationBarTitleDisplayMode(.inline)
@@ -147,23 +155,26 @@ struct DetailSpecRow: View {
 #Preview {
     DetailView(
         scooter: CygnusModel(
-            generation: "第一代",
+            generation: "第三代",
             name: "Cygnus-X",
-            years: "2002 - 2006",
-            slogan: "12吋雙槍 破局而生",
-            themeColor: .blue,
-            description: "開創台灣運動型速克達 12 吋胎與雙槍避震的黃金年代。",
-            engine: "氣冷 4V 化油器",
-            brake: "前碟後鼓",
-            cardGenerationTitle: "1st Gen",
-            cardSubTitle: "The Origin",
-            imageName: "cygnus_gen1",
-            yearsLabel: "2002 - 2006",
+            years: "2012 - 2015",
+            slogan: "美學與性能的平衡",
+            themeColor: .orange,
+            description:"""
+                邁入第三世代，勁戰回歸運動風格，分離式頭燈導入LED定位燈，車殼設計流暢洗練，遠看與第一代神韻極為近似。
+                三代勁戰內藏不少優化細節，例如採用新版卡鉗、加大 12% 煞車皮尺寸、縮短煞車油管長度 15% ，制動效果因此進步 19%。輕量化碟盤、前叉阻尼調整、新版後避震器，操控感有所升級。加上車體輕量化 3%、外觀部品與燈具組減重 5% 與 3%，還有傳動系統調整、排氣管內部，運動化工程範圍有內有外、表裡一致。
+                """,
+            engine: "氣冷 4V 噴射引擎 (代號 5ML)",
+            brake: "前：碟煞 (優化制動) \n後：鼓煞 (優化制動)",
+            cardGenerationTitle: "3",
+            cardSubTitle: "回歸洗練設計",
+            imageName: "cygnus_gen3",
+            yearsLabel: "2012 - 2015",
             additionalTag: nil,
-            specTitle1: "ENGINE",
-            specValue1: "125cc Air-Cooled",
-            specTitle2: "FUEL SYSTEM",
-            specValue2: "Carburetor"
+            specTitle1: "定位燈",
+            specValue1: "LED 光條",
+            specTitle2: "輕量化工程",
+            specValue2: "車體輕量化 3%"
         )
     )
 }
