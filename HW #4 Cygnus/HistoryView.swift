@@ -22,10 +22,17 @@ struct HistoryView: View {
         
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
-                Text("HISTORY")
-                    .font(.system(size: 38, weight: .black))
-                Text("Evolution of a performance icon.")
-                    .font(.subheadline)
+                HStack {
+//                    Text("歷史")
+//                        .font(.system(size: 38, weight: .black))
+                    Image(.cygnusxLogo)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 35)
+                }
+                
+                Text("有路就有勁戰 - 20 餘年的經典")
+                    .font(.headline)
                     .foregroundColor(.white.opacity(0.8))
             }
             .foregroundColor(.white)

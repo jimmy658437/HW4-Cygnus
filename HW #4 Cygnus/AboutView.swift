@@ -31,7 +31,7 @@ struct AboutView: View {
                 VStack(spacing: 0) {
                     // 頂部大標題區塊
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("ABOUT")
+                        Text("關於")
                             .font(.system(size: 38, weight: .black))
                         Text("Revs your Heart.")
                             .font(.subheadline)
@@ -44,7 +44,7 @@ struct AboutView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                     ScrollView(showsIndicators: false) {
-                        VStack(spacing: 24) {
+                        VStack(spacing: 20) {
 
                             // 模組 1：Yamaha 品牌故事卡片
                             AboutCardView(
@@ -71,7 +71,7 @@ struct AboutView: View {
                                 isShowingWebView = true
                             }) {
                                 HStack {
-                                    Text("探索 CYGNUS GRYPHUS 官網")
+                                    Text("探索最新 CYGNUS 車系")
                                         .font(.headline)
                                         .fontWeight(.bold)
                                     Spacer()
@@ -102,13 +102,6 @@ struct AboutView: View {
                                 )
                             }
                             .padding(.top, 10)
-
-                            // 底部版權宣告
-//                            Text("© YAMAHA MOTOR TAIWAN CO., LTD.")
-//                                .font(.caption2)
-//                                .foregroundColor(.white.opacity(0.4))
-//                                .padding(.top, 30)
-//                                .padding(.bottom, 80)
                         }
                         .padding(.horizontal, 20)
                     }

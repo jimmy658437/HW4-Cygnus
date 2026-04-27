@@ -50,7 +50,6 @@ struct CygnusCardView: View {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        // ✨ 明確加上 .foregroundColor(.white) 讓年份變成淺白字
                         Text(scooter.yearsLabel)
                             .font(.caption).bold()
                             .foregroundColor(.white)
@@ -76,7 +75,7 @@ struct CygnusCardView: View {
                     Spacer()
 
                     HStack(alignment: .lastTextBaseline, spacing: 6) {
-                        Text(scooter.cardGenerationTitle)
+                        Text("0\(scooter.cardGenerationTitle)")
                             .font(.system(size: 32, weight: .black))
                             .foregroundColor(.white)
 

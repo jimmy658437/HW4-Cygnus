@@ -20,18 +20,18 @@ enum SpecCategory: String, CaseIterable {
 // MARK: - 2. 全新設計的規格比較分頁視圖
 struct ComparisonView: View {
     let scooters: [CygnusModel]
-    
+
     // 全局漸層背景色
     let darkBg = Color(red: 0.05, green: 0.05, blue: 0.1)
     let yamahaBlue = Color(red: 0 / 255.0, green: 32 / 255.0, blue: 130 / 255.0)
-    
+
     var body: some View {
         let bgGradient = LinearGradient(
             gradient: Gradient(colors: [yamahaBlue, darkBg]),
             startPoint: .top,
             endPoint: .bottom
         )
-        
+
         NavigationStack {
             // 💡 拔掉 ZStack 和 VStack，直接放 TabView！
             TabView {
@@ -44,17 +44,13 @@ struct ComparisonView: View {
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            
+
             // ✨ 重點 1：將漸層設為「背景」，並只讓背景去忽略安全範圍！
             // 這樣內容不會往上疊到標題，底下的小圓點也會乖乖停留在 Tab bar 上方。
             .background(bgGradient.ignoresSafeArea())
-            
-            // ✨ 重點 2：加上你堅持要的原生標題！
             .navigationTitle("車系總覽")
             .navigationBarTitleDisplayMode(.large)
-            .toolbarColorScheme(.dark, for: .navigationBar) // 確保標題是白字
-            
-            // 💡 隱藏導航列的預設毛玻璃底色，讓你的 Yamaha 藍漸層完美透出來
+            .toolbarColorScheme(.dark, for: .navigationBar)  // 確保標題是白字
             .toolbarBackground(.hidden, for: .navigationBar)
             .environment(\.colorScheme, .dark)
         }
@@ -67,13 +63,6 @@ struct ModelListView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-//            Text("車系總覽")
-//                .font(.system(size: 32, weight: .black))
-//                .foregroundColor(.white)
-//                .padding(.horizontal, 20)
-//                .padding(.top, 10)
-//                .padding(.bottom, 10)
-
             List {
                 ForEach(scooters) { scooter in
                     NavigationLink(destination: DetailView(scooter: scooter)) {
@@ -138,11 +127,11 @@ struct SpecRowCard: View {
         HStack(spacing: 15) {
             // 左側：世代標籤
             VStack(alignment: .leading, spacing: 4) {
-                Text(scooter.cardGenerationTitle)
+                Text("\(scooter.generation)")
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(scooter.themeColor)  // 使用該代的代表色
 
-                Text(scooter.yearsLabel.prefix(4))  // 只取年份前4碼
+                Text(scooter.years.prefix(4))  // 只取年份前4碼
                     .font(.caption)
                     .foregroundColor(.gray)
             }
@@ -192,18 +181,27 @@ struct SpecRowCard: View {
             } else if scooter.generation == "第三代" || scooter.generation == "第四代"
             {
                 return "H4 鹵素大燈 / LED 定位燈與尾燈"
+            } else if scooter.generation == "第五代" || scooter.generation == "第六代"
+            {
+                return "全車 LED 燈具 (搭配反射式頭燈)"
+            } else if scooter.generation == "第七代" {
+                return "全車 LED 燈具 (含方向燈，搭配魚眼式頭燈)"
             } else {
-                return "全車高亮度 LED 燈具 (反射式/魚眼)"
+                return "規格未確認"
             }
 
         case .electronics:
             if scooter.generation == "第七代" {
-                return "TCS 循跡防滑系統 / 智慧 TFT 儀表"
-            } else if scooter.generation == "第五代" || scooter.generation == "第六代"
+                return "標配 TCS 循跡防滑系統（ABS 視等級配備）/ 全數位儀表"
+            } else if scooter.generation == "第六代" {
+                return """
+                ABS＋TCS (視等級配備) / \nTFT 智慧儀表或高反差數位儀表
+                """
+            } else if scooter.generation == "第五代" {
+                return "ABS 防鎖死煞車系統 (視等級配備) / 全數位儀表"
+            } else if scooter.generation == "第二代" || scooter.generation == "第三代" || scooter.generation == "第四代"
             {
-                return "BOSCH ABS 防鎖死系統 / 全數位儀表"
-            } else if scooter.generation == "第二代" {
-                return "FI 噴射供油電腦 / 液晶指針雙載儀表"
+                return "FI 噴射供油系統 / \n液晶指針雙載儀表"
             } else {
                 return "無特殊電控輔助 / 傳統機械表"
             }

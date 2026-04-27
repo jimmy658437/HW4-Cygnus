@@ -15,7 +15,7 @@ struct DetailRow: View {
             // 左側縮圖
             Image(scooter.imageName)
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 .frame(width: 70, height: 70)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
@@ -25,7 +25,7 @@ struct DetailRow: View {
             
             // 右側文字資訊
             VStack(alignment: .leading, spacing: 4) {
-                Text(scooter.cardGenerationTitle)
+                Text(scooter.generation)
                     .font(.system(size: 14, weight: .bold))
                     .foregroundColor(.white.opacity(0.6))
                 
@@ -34,7 +34,7 @@ struct DetailRow: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                 
-                Text(scooter.yearsLabel)
+                Text(scooter.years)
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.5))
             }
