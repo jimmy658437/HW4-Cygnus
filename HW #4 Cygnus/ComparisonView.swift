@@ -21,7 +21,7 @@ enum SpecCategory: String, CaseIterable {
 struct ComparisonView: View {
     let scooters: [CygnusModel]
 
-    // 全局漸層背景色
+    // 漸層背景
     let darkBg = Color(red: 0.05, green: 0.05, blue: 0.1)
     let yamahaBlue = Color(red: 0 / 255.0, green: 32 / 255.0, blue: 130 / 255.0)
 
@@ -33,7 +33,6 @@ struct ComparisonView: View {
         )
 
         NavigationStack {
-            // 💡 拔掉 ZStack 和 VStack，直接放 TabView！
             TabView {
                 ForEach(SpecCategory.allCases, id: \.self) { category in
                     if category == .overview {
@@ -44,15 +43,10 @@ struct ComparisonView: View {
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-
-            // ✨ 重點 1：將漸層設為「背景」，並只讓背景去忽略安全範圍！
-            // 這樣內容不會往上疊到標題，底下的小圓點也會乖乖停留在 Tab bar 上方。
             .background(bgGradient.ignoresSafeArea())
             .navigationTitle("車系總覽")
             .navigationBarTitleDisplayMode(.large)
-            .toolbarColorScheme(.dark, for: .navigationBar)  // 確保標題是白字
-
-            // 💡 隱藏導航列的預設毛玻璃底色，讓你的 Yamaha 藍漸層完美透出來
+            .toolbarColorScheme(.dark, for: .navigationBar)  // 標題白字
             .toolbarBackground(.hidden, for: .navigationBar)
             .environment(\.colorScheme, .dark)
         }
@@ -68,25 +62,22 @@ struct ModelListView: View {
             List {
                 ForEach(scooters) { scooter in
                     NavigationLink(destination: DetailView(scooter: scooter)) {
-                        // 呼叫獨立出來的 DetailRow
                         DetailRow(scooter: scooter)
                     }
-                    // ✨ 讓 List 的每一列變成微光毛玻璃
+                    // List with ultraThinMaterial
                     .listRowBackground(
                         ZStack {
-                            Color.black.opacity(0.1)  // 打個暗底
-                            Rectangle().fill(.ultraThinMaterial)  // 上毛玻璃
+                            Color.black.opacity(0.1)
+                            Rectangle().fill(.ultraThinMaterial)
                         }
                     )
-                    // 設定分隔線的顏色
+                    // 分隔線顏色
                     .listRowSeparatorTint(Color.white.opacity(0.2))
                 }
             }
-            // ✨ 關鍵 1：原生大圓角群組樣式
             .listStyle(.insetGrouped)
-            // ✨ 關鍵 2：隱藏預設背景，讓底層 Yamaha 藍透出來
+            // 隱藏預設背景
             .scrollContentBackground(.hidden)
-            //            .padding(.bottom, 50)
         }
     }
 }
@@ -98,7 +89,7 @@ struct SpecPageView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // 該分頁的大標題
+            // 大標題
             Text(category.rawValue)
                 .font(.system(size: 25, weight: .black))
                 .foregroundColor(.white)
@@ -106,7 +97,7 @@ struct SpecPageView: View {
                 .padding(.top, 10)
                 .padding(.bottom, 20)
 
-            // 垂直滾動歷代規格
+            // 歷代規格
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 12) {
                     ForEach(scooters) { scooter in
@@ -114,7 +105,7 @@ struct SpecPageView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 80)  // 給下方分頁小圓點留空間
+                .padding(.bottom, 80)
             }
         }
     }
@@ -127,7 +118,7 @@ struct SpecRowCard: View {
 
     var body: some View {
         HStack(spacing: 15) {
-            // 左側：世代標籤
+            // Generation tag
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(scooter.generation)")
                     .font(.system(size: 16, weight: .bold))
@@ -139,12 +130,11 @@ struct SpecRowCard: View {
             }
             .frame(width: 75, alignment: .leading)
 
-            // 分隔線
             Divider()
                 .background(Color.gray.opacity(0.4))
                 .frame(height: 30)
 
-            // 右側：規格細節
+            // Spec description
             Text(specContent)
                 .font(.system(size: 15, weight: .medium))
                 .foregroundColor(.white.opacity(0.9))
@@ -154,9 +144,9 @@ struct SpecRowCard: View {
             Spacer()
         }
         .padding()
-        .background(Color.white.opacity(0.05))  // 微亮的深色卡片底
+        .background(Color.white.opacity(0.05))
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        // 左側加上一個微小的顏色邊條，增加視覺層次
+        // 左側色彩邊條
         .overlay(
             Rectangle()
                 .fill(scooter.themeColor)
@@ -169,7 +159,7 @@ struct SpecRowCard: View {
     var specContent: String {
         switch category {
         case .overview:
-            return ""  // 總覽頁不會渲染這張卡片，所以回傳空字串即可
+            return "" 
 
         case .engine:
             return scooter.engine

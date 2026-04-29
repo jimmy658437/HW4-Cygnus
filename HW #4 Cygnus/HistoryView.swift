@@ -23,8 +23,6 @@ struct HistoryView: View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-//                    Text("歷史")
-//                        .font(.system(size: 38, weight: .black))
                     Image(.cygnusxLogo)
                         .resizable()
                         .scaledToFit()

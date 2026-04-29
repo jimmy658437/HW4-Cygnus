@@ -39,7 +39,7 @@ struct DetailRow: View {
                     .foregroundColor(.white.opacity(0.5))
             }
         }
-        .padding(.vertical, 4) // 稍微撐開上下空間
+        .padding(.vertical, 4)
     }
 }
 

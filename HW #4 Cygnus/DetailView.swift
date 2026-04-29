@@ -12,7 +12,6 @@ struct DetailView: View {
     let darkBg = Color(red: 0.05, green: 0.05, blue: 0.1)
     let yamahaBlue = Color(red: 0 / 255.0, green: 32 / 255.0, blue: 130 / 255.0)
 
-    // 延續多圖自動生成的邏輯，作為頂部的 Hero Image 輪播
     var displayImages: [String] {
         [
             scooter.imageName,
@@ -32,7 +31,7 @@ struct DetailView: View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 20) {
 
-                // 1. 頂部照片輪播 (Hero Image)
+                // 照片
                 TabView {
                     ForEach(displayImages, id: \.self) { imgName in
                         Image(imgName)
@@ -46,10 +45,10 @@ struct DetailView: View {
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .frame(height: 320)
 
-                // 2. 內容區塊
+                // 內容
                 VStack(alignment: .leading, spacing: 24) {
 
-                    // 標題與年份標籤
+                    // 標題與年份
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(scooter.generation)
@@ -75,7 +74,7 @@ struct DetailView: View {
                             .padding(.top, 8)
                     }
 
-                    // Slogan 與 敘述
+                    // 敘述
                     VStack(alignment: .leading, spacing: 12) {
                         Text(scooter.slogan)
                             .font(.title2)
@@ -88,7 +87,7 @@ struct DetailView: View {
                             .lineSpacing(6)  // 增加行距，讓閱讀更舒適
                     }
 
-                    // 3. 玻璃感規格卡片 (與 ComparisonView 一致的語彙)
+                    // 規格
                     VStack(alignment: .leading, spacing: 16) {
                         Text("KEY SPECIFICATIONS")
                             .font(.system(size: 16, weight: .black))
@@ -97,7 +96,6 @@ struct DetailView: View {
 
                         Divider().background(Color.gray.opacity(0.4))
 
-                        // 沿用我們寫好的排版小工具
                         DetailSpecRow(title: "引擎動力", value: scooter.engine)
                         DetailSpecRow(title: "制動系統", value: scooter.brake)
                         DetailSpecRow(
@@ -123,16 +121,12 @@ struct DetailView: View {
         }
         .background(bgDetailGradient.ignoresSafeArea())
         .navigationTitle("\(scooter.generation) \(scooter.name)")
-        // ✨ 在詳細頁面通常建議用 .inline，讓標題縮小置中，留更多空間給內容
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarColorScheme(.dark, for: .navigationBar)  // 延續白字設定
-        // --- 導覽列設定 ---
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
-        // 關鍵：確保返回按鈕 (< Back) 在深色背景上會自動變成白色
     }
 }
 
-// MARK: - 專用排版小工具 (讓標題與數值整齊對齊)
 struct DetailSpecRow: View {
     let title: String
     let value: String
@@ -142,7 +136,7 @@ struct DetailSpecRow: View {
             Text(title)
                 .font(.subheadline)
                 .foregroundColor(.gray)
-                .frame(width: 70, alignment: .leading)  // 固定標題寬度
+                .frame(width: 70, alignment: .leading)
 
             Text(value)
                 .font(.subheadline)

@@ -21,7 +21,7 @@ struct CygnusCardView: View {
     var body: some View {
         VStack(spacing: 0) {
 
-            // --- 上半部：圖片與大標題區塊 ---
+            // 上半部：圖片與大標題區塊
             ZStack {
                 TabView {
                     ForEach(displayImages, id: \.self) { imgName in
@@ -33,7 +33,7 @@ struct CygnusCardView: View {
                                 .frame(height: 240)
                                 .clipped()
 
-                            // 圖片下方的漸層，用來承接下方的毛玻璃
+                            // 圖片下方的漸層
                             LinearGradient(
                                 colors: [
                                     .clear, .black.opacity(0.3),
@@ -90,7 +90,7 @@ struct CygnusCardView: View {
             }
             .frame(height: 240)
 
-            // --- 下半部：規格區塊 ---
+            // 下半部：規格區塊
             HStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(scooter.specTitle1)
@@ -121,23 +121,18 @@ struct CygnusCardView: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 18)
         }
-        // ✨ 色彩遮罩 + 毛玻璃的核心組合
         .background(
             ZStack {
-                // 1. 基底毛玻璃
                 Rectangle()
                     .fill(.ultraThinMaterial)
-
-                // 2. 協調的色彩遮罩 (深黑 + 微量 Yamaha 藍)
                 Color.black.opacity(0.25)
                 Color(red: 0 / 255.0, green: 32 / 255.0, blue: 130 / 255.0)
                     .opacity(0.15)
             }
         )
-        // 確保系統將這塊毛玻璃視為「深色模式」處理，字體渲染會更漂亮
         .environment(\.colorScheme, .dark)
         .clipShape(RoundedRectangle(cornerRadius: 15))
-        // 玻璃邊緣的反光線
+        // 邊緣白線
         .overlay(
             RoundedRectangle(cornerRadius: 15)
                 .stroke(Color.white.opacity(0.15), lineWidth: 1)

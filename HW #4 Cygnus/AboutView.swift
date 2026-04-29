@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import WebKit  // 改用 WebKit
+import WebKit
 
 // MARK: - 1. 關於品牌視圖
 struct AboutView: View {
@@ -25,7 +25,6 @@ struct AboutView: View {
 
         NavigationStack {
             ZStack {
-                // 套用全局漸層背景
                 bgGradient.ignoresSafeArea()
 
                 VStack(spacing: 0) {
@@ -46,7 +45,7 @@ struct AboutView: View {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 20) {
 
-                            // 模組 1：Yamaha 品牌故事卡片
+                            // Yamaha 品牌故事卡片
                             AboutCardView(
                                 iconName: "tuningfork",
                                 fallbackIcon: "globe.asia.australia.fill",
@@ -56,7 +55,7 @@ struct AboutView: View {
                                     "Yamaha 致力於為人們帶來「感動」。透過不斷創新的技術與對卓越品質的堅持，我們期望創造出超越期待的價值，讓每一次的騎乘都充滿喜悅與激情，豐富您的移動生活。"
                             )
 
-                            // 模組 2：Cygnus 精神卡片
+                            // Cygnus 卡片
                             AboutCardView(
                                 iconName: "flag.checkered",
                                 fallbackIcon: "flag.checkered",
@@ -66,7 +65,7 @@ struct AboutView: View {
                                     "勁戰 (Cygnus) 系列自 2002 年發表以來，一直被譽為「彎道王者」。憑藉著強韌的車架、優異的配重與無限的改裝潛力，它不只是代步工具，更是台灣二輪運動文化的縮影。"
                             )
 
-                            // 模組 3：前往官方網站的按鈕
+                            // 前往官方網站
                             Button(action: {
                                 isShowingWebView = true
                             }) {
@@ -107,16 +106,15 @@ struct AboutView: View {
                     }
                 }
             }
-            // 彈出基於 WKWebView 的視窗
+            // WKWebView 視窗
             .sheet(isPresented: $isShowingWebView) {
                 if let url = URL(
                     string:
                         "https://www.yamaha-motor.com.tw/motor/motor_CYGNUS_XR"
                 ) {
-                    // 為了讓 WebView 在 Sheet 裡面更好看，我們包裝一層 NavigationStack 並加上關閉按鈕
                     NavigationStack {
                         WebView(url: url)
-                            .ignoresSafeArea(edges: .bottom)  // 讓網頁延伸到最底
+                            .ignoresSafeArea(edges: .bottom)
                             .navigationTitle("YAMAHA 官方網站")
                             .navigationBarTitleDisplayMode(.inline)
                             .toolbar {

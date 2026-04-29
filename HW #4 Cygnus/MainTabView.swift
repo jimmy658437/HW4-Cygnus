@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
-    // 整合連結中 1-7 代的完整資料
+    // 1-7 代資料
     let scooters: [CygnusModel] = [
         CygnusModel(
             generation: "第一代",
@@ -176,22 +176,22 @@ struct MainTabView: View {
     
     var body: some View {
         TabView {
-            // Tab 1: 圖鑑 (卡片滑動)
+            // Tab 1 車系歷史
             HistoryView(scooters: scooters)
                 .tabItem {
                     Label("歷史", systemImage: "book.fill")
                 }
             
-            // Tab 2: 規格 (清單比較)
+            // Tab 2 車系總覽與規格介紹
             ComparisonView(scooters: scooters)
                 .tabItem {
                     Label("總覽與規格", systemImage: "list.bullet.rectangle.portrait")
                 }
             
-            // Tab 3: 品牌 (關於)
+            // Tab 3 品牌
             AboutView()
                 .tabItem {
-                    Label("關於", systemImage: "info.circle.fill")
+                    Label("關於品牌", systemImage: "info.circle.fill")
                 }
         }
     }
