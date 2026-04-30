@@ -151,13 +151,18 @@ struct DetailSpecRow: View {
             name: "Cygnus-X",
             years: "2012 - 2015",
             slogan: "美學與性能的平衡",
-            themeColor: .orange,
+            themeColor: .mint,
             description:"""
                 邁入第三世代，勁戰回歸運動風格，分離式頭燈導入LED定位燈，車殼設計流暢洗練，遠看與第一代神韻極為近似。
                 三代勁戰內藏不少優化細節，例如採用新版卡鉗、加大 12% 煞車皮尺寸、縮短煞車油管長度 15% ，制動效果因此進步 19%。輕量化碟盤、前叉阻尼調整、新版後避震器，操控感有所升級。加上車體輕量化 3%、外觀部品與燈具組減重 5% 與 3%，還有傳動系統調整、排氣管內部，運動化工程範圍有內有外、表裡一致。
                 """,
             engine: "氣冷 4V 噴射引擎 (代號 5ML)",
             brake: "前：碟煞 (優化制動) \n後：鼓煞 (優化制動)",
+            size: """
+                軸距：1295mm
+                尺寸：1895 x 690 x 1115 mm
+                座椅高度：755mm
+                """,
             cardGenerationTitle: "3",
             cardSubTitle: "回歸洗練設計",
             imageName: "cygnus_gen3",

@@ -22,6 +22,10 @@ struct ContentView: View {
                 """,
             engine: "氣冷 4V 化油器 (代號 5ML)",
             brake: "前：碟煞 後：鼓煞",
+            size: """
+                軸距：1295mm
+                尺寸：1855 x 685 x 1110 mm
+                """,
             cardGenerationTitle: "1",
             cardSubTitle: "起源",
             imageName: "cygnus_gen1",
@@ -45,6 +49,10 @@ struct ContentView: View {
                 """ ,
             engine: "氣冷 4V 化油器／噴射引擎 (代號 5ML)",
             brake: "前：碟煞 \n後：鼓煞",
+            size: """
+                軸距：1295mm
+                尺寸：1855 x 685 x 1135 mm
+                """,
             cardGenerationTitle: "2",
             cardSubTitle: "五期噴射引擎導入",
             imageName: "cygnus_gen2",
@@ -67,6 +75,10 @@ struct ContentView: View {
                 """,
             engine: "氣冷 4V 噴射引擎 (代號 5ML)",
             brake: "前：碟煞 (優化制動) \n後：鼓煞 (優化制動)",
+            size: """
+                軸距：1295mm
+                尺寸：1895 x 690 x 1115 mm
+                """,
             cardGenerationTitle: "3",
             cardSubTitle: "回歸洗練設計",
             imageName: "cygnus_gen3",
@@ -89,6 +101,10 @@ struct ContentView: View {
                 """,
             engine: "氣冷 4V 噴射引擎 (代號 5ML)",
             brake: "前後雙碟煞",
+            size: """
+                軸距：1305mm
+                尺寸：1895 x 690 x 1115 mm
+                """,
             cardGenerationTitle: "4",
             cardSubTitle: "Dual Disc",
             imageName: "cygnus_gen4",
@@ -112,6 +128,10 @@ struct ContentView: View {
                 """,
             engine: "氣冷 4V 噴射引擎 (代號 5ML)",
             brake: "前後雙碟，配備日本 ADVICS ABS 系統",
+            size: """
+                軸距：1305mm
+                尺寸：1890 x 690 x 1120 mm
+                """,
             cardGenerationTitle: "5",
             cardSubTitle: "重車級 ABS",
             imageName: "cygnus_gen5",
@@ -138,6 +158,10 @@ struct ContentView: View {
             brake: """
             前後雙碟，配備 UBS 連動煞車 / \nABS+TCS 雙電控系統
             """,
+            size: """
+                軸距：1340mm
+                尺寸：1935 x 690 x 1160 mm
+                """,
             cardGenerationTitle: "6",
             cardSubTitle: "水冷革新，穩重操控",
             imageName: "cygnus_gen6",
@@ -162,6 +186,10 @@ struct ContentView: View {
             brake: """
             前後雙碟，標配 TCS 循跡防滑＋\nUBS 連動煞車 / ABS 防鎖死煞車
             """,
+            size: """
+                軸距：1340mm
+                尺寸：1865 x 715 x 1125 mm
+                """,
             cardGenerationTitle: "7",
             cardSubTitle: "全新雙動力",
             imageName: "cygnus_gen7",

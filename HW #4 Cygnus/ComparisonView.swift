@@ -11,10 +11,10 @@ import SwiftUI
 enum SpecCategory: String, CaseIterable {
     case overview = "車系總覽"  // 第一頁 List 入口
     case engine = "引擎與動力"
-    case chassis = "制動與底盤"
-    case lighting = "燈具設備"
-    case electronics = "電控系統"
     case dimensions = "車身尺寸"
+    case chassis = "制動系統"
+    case electronics = "電子配備"
+    case lighting = "燈具規格"
 }
 
 // MARK: - 2. 全新設計的規格比較分頁視圖
@@ -198,11 +198,7 @@ struct SpecRowCard: View {
             }
 
         case .dimensions:
-            if scooter.generation == "第六代" || scooter.generation == "第七代" {
-                return "前 120/70-12 | 後 130/70-12 (不對稱車架)"
-            } else {
-                return "前 110/70-12 | 後 120/70-12 (雙槍避震)"
-            }
+            return scooter.size
         }
     }
 }
@@ -213,20 +209,28 @@ struct SpecRowCard: View {
             generation: "第一代",
             name: "Cygnus-X",
             years: "2002 - 2006",
-            slogan: "12吋雙槍 破局而生",
-            themeColor: .blue,
-            description: "開創台灣運動型速克達 12 吋胎與雙槍避震的黃金年代。",
-            engine: "氣冷 4V 化油器",
-            brake: "前碟後鼓",
-            cardGenerationTitle: "1st Gen",
-            cardSubTitle: "The Origin",
+            slogan: "「勁戰」誕生",
+            themeColor: .gray,
+            description: """
+                2002年，台灣山葉發表第一代 Cygnus-X 125，可動式車頭、H4規格頭燈、前後12吋輪胎、雙槍後避震器、為求均衡配重而存在的前置電瓶，開創台灣運動型速克達 12 吋胎與雙槍避震的道路。
+                前衛的 Cygnus-X 並沒有一上市就轟動，而是等到2004年首次小改(SR版本) 導入活潑的雙配色，甚至下猛藥限量發售Rossi限量版！更重要的是啟用中文車名「勁戰」才迎來銷售爆發。由此可見，接地氣比高大上更有效用。
+                """,
+            engine: "氣冷 4V 化油器 (代號 5ML)",
+            brake: "前：碟煞 後：鼓煞",
+            size: """
+                軸距：1295mm
+                尺寸：1855 x 685 x 1110 mm
+                座椅高度：770mm
+                """,
+            cardGenerationTitle: "1",
+            cardSubTitle: "起源",
             imageName: "cygnus_gen1",
             yearsLabel: "2002 - 2006",
             additionalTag: nil,
-            specTitle1: "ENGINE",
-            specValue1: "125cc Air-Cooled",
-            specTitle2: "FUEL SYSTEM",
-            specValue2: "Carburetor"
+            specTitle1: "引擎",
+            specValue1: "4V 氣冷 125cc ",
+            specTitle2: "避震器",
+            specValue2: "雙槍後避震"
         )
     ])
 }

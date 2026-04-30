@@ -18,6 +18,7 @@ struct CygnusModel: Identifiable {
     let description: String
     let engine: String
     let brake: String
+    let size: String
     
     let cardGenerationTitle: String
     let cardSubTitle: String
