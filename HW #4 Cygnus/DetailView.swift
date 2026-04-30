@@ -9,8 +9,6 @@ import SwiftUI
 
 struct DetailView: View {
     let scooter: CygnusModel
-    let darkBg = Color(red: 0.05, green: 0.05, blue: 0.1)
-    let yamahaBlue = Color(red: 0 / 255.0, green: 32 / 255.0, blue: 130 / 255.0)
 
     var displayImages: [String] {
         [
@@ -23,7 +21,7 @@ struct DetailView: View {
     var body: some View {
         
         let bgDetailGradient = LinearGradient(
-            gradient: Gradient(colors: [scooter.themeColor.opacity(0.9), yamahaBlue.opacity(0.9)]),
+            gradient: Gradient(colors: [scooter.themeColor.opacity(0.9), .yamahaBlue.opacity(0.9)]),
             startPoint: UnitPoint(x: 0.2, y: 0),
             endPoint: UnitPoint(x: 0.5, y: 0.7)
         )

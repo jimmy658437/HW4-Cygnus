@@ -13,12 +13,10 @@ struct AboutView: View {
     @State private var isShowingWebView = false
 
     // 延續 App 視覺風格的漸層色
-    let darkBg = Color(red: 0.05, green: 0.05, blue: 0.1)
-    let yamahaBlue = Color(red: 0 / 255.0, green: 32 / 255.0, blue: 130 / 255.0)
 
     var body: some View {
         let bgGradient = LinearGradient(
-            gradient: Gradient(colors: [yamahaBlue, darkBg]),
+            gradient: Gradient(colors: [.yamahaBlue, .darkBg]),
             startPoint: .top,
             endPoint: .bottom
         )
