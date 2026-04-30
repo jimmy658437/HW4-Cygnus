@@ -50,17 +50,19 @@ struct AboutView: View {
                                 iconName: "tuningfork",
                                 fallbackIcon: "globe.asia.australia.fill",
                                 title: "品牌理念",
-                                subtitle: "創造感動 (Kando)",
+                                subtitle: "創造感動",
                                 content:
-                                    "Yamaha 致力於為人們帶來「感動」。透過不斷創新的技術與對卓越品質的堅持，我們期望創造出超越期待的價值，讓每一次的騎乘都充滿喜悅與激情，豐富您的移動生活。"
+                                    """
+Yamaha 致力於為人們帶來「感動」。透過\n不斷創新的技術與對卓越品質的堅持，期望創造出超越期待的價值，讓每一次的騎乘都充滿喜悅與激情，豐富您的移動生活。
+"""
                             )
 
                             // Cygnus 卡片
                             AboutCardView(
                                 iconName: "flag.checkered",
                                 fallbackIcon: "flag.checkered",
-                                title: "Cygnus 精神",
-                                subtitle: "Evolution of a performance icon",
+                                title: "關於 Cygnus",
+                                subtitle: "發揚台灣運動型速克達",
                                 content:
                                     "勁戰 (Cygnus) 系列自 2002 年發表以來，一直被譽為「彎道王者」。憑藉著強韌的車架、優異的配重與無限的改裝潛力，它不只是代步工具，更是台灣二輪運動文化的縮影。"
                             )
